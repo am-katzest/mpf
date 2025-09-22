@@ -47,6 +47,9 @@
 (defn notify-quiet [s]
   (println "notifying (quiet):" s))
 
+(defn beep []
+  (sh/sh "mpg123" "-f5000" "notify.mp3"))
+
 (defn nofoxhole [window-id]
   (if window-id :inactive :active))
 
@@ -62,14 +65,14 @@
     (cond
       (nil? window-id) :nofoxhole
       (= :none queue) (do (notify-quiet "queues no longer visible") :inactive)
-      (= :completed queue) (do (notify "finished!") :finished)
+      (= :completed queue) (do (beep) (notify "finished!") :finished)
       :else :active)))
 
 (defn finished [window-id]
   (let [queue (queue-status window-id)]
     (cond
       (nil? window-id) :nofoxhole
-      (= :completed queue) :finished
+      (= :completed queue) (do (beep) :finished)
       :else :inactive)))
 
 (def state->wait-time
