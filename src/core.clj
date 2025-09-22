@@ -44,6 +44,9 @@
   (println "notifying:" s)
   (sh/sh "notify-send" s))
 
+(defn notify-quiet [s]
+  (println "notifying (quiet):" s))
+
 (defn nofoxhole [window-id]
   (if window-id :inactive :active))
 
@@ -52,13 +55,13 @@
     (cond
       (nil? window-id) :nofoxhole
       (= :none queue) :inactive
-      :else (do (notify "yayy, queues!") :active))))
+      :else (do (notify-quiet "yayy, queues!") :active))))
 
 (defn active [window-id]
   (let [queue (queue-status window-id)]
     (cond
       (nil? window-id) :nofoxhole
-      (= :none queue) (do (notify "queues no longer visible") :inactive)
+      (= :none queue) (do (notify-quiet "queues no longer visible") :inactive)
       (= :completed queue) (do (notify "finished!") :finished)
       :else :active)))
 
@@ -87,5 +90,3 @@
     (println "state:" state)
     (Thread/sleep (state->wait-time state))
     (recur ((state->fn state) (foxhole-window-id)))))
-
-(run-loop)
