@@ -40,12 +40,6 @@
 
 (def queue-status (comp analyze-screenshot take-screenshot))
 
-(defn notify [s]
-  (println "notifying:" s)
-  (sh/sh "notify-send" s))
-
-(defn notify-quiet [s]
-  (println "notifying (quiet):" s))
 
 (defn beep []
   (sh/sh "mpg123" "-f5000" "notify.mp3"))
@@ -58,14 +52,14 @@
     (cond
       (nil? window-id) :nofoxhole
       (= :none queue) :inactive
-      :else (do (notify-quiet "yayy, queues!") :active))))
+      :else (do (println "yayy, queues!") :active))))
 
 (defn active [window-id]
   (let [queue (queue-status window-id)]
     (cond
       (nil? window-id) :nofoxhole
-      (= :none queue) (do (notify-quiet "queues no longer visible") :inactive)
-      (= :completed queue) (do (beep) (notify "finished!") :finished)
+      (= :none queue) (do (println "queues no longer visible") :inactive)
+      (= :completed queue) (do (beep) (println "finished!") :finished)
       :else :active)))
 
 (defn finished [window-id]
