@@ -1,14 +1,7 @@
 (ns core
   (:require [opencv4.core :as cv]
             [clojure.java.shell :as sh])
-  (:import
-    [org.opencv.core Mat]))
-
-;; (defn see
-;;   ([img file]
-;;    (cv/imwrite img file)
-;;    (sh/sh "feh" file))
-;;   ([img] (see img "tmp.png")))
+  (:import [org.opencv.core Mat]))
 
 (def order-finished-icon (cv/imread "foxholefinished"))
 
