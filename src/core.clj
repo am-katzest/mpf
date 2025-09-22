@@ -85,7 +85,7 @@
    :finished finished
    :inactive inactive})
 
-(defn run-loop []
+(defn run-loop [& _args]
   (loop [state :inactive]
     (println "state:" state)
     (Thread/sleep (state->wait-time state))
