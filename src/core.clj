@@ -45,7 +45,7 @@
   (sh/sh "mpg123" "-f5000" "notify.mp3"))
 
 (defn nofoxhole [window-id]
-  (if window-id :inactive :active))
+  (if window-id :inactive :nofoxhole))
 
 (defn inactive [window-id]
   (let [queue (queue-status window-id)]
