@@ -3,9 +3,13 @@
             [clojure.java.shell :as sh])
   (:import [org.opencv.core Mat]))
 
-(def order-finished-icon (cv/imread "foxholefinished"))
 
-(def order-running-icon (cv/imread "foxholenotfinished"))
+(defn load-image [filename]
+  (cv/imread filename))
+
+(def order-finished-icon (load-image "foxholefinished"))
+
+(def order-running-icon (load-image "foxholenotfinished"))
 
 (defn matches? [image template]
   (let [out (Mat/zeros (cv/size image) 0)]
@@ -29,7 +33,7 @@
 (defn take-screenshot [window-id]
   (let [filename "/tmp/mpf.png"]
     (sh/sh "import" "-silent" "-window" window-id "-crop" "100x550+1520+150" filename)
-    (cv/imread filename)))
+    (load-image filename)))
 
 (defn analyze-screenshot [image]
   (case [(has-completed-order? image) (has-running-order? image)]
