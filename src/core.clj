@@ -7,7 +7,8 @@
   (-> image
       (cv/sobel! cv/CV_8U, 1, 1)
       (cv/cvt-color! cv/COLOR_BGR2GRAY)
-      (cv/threshold! 1 255 , cv/THRESH_BINARY)))
+      (cv/threshold! 6 255 cv/THRESH_BINARY)))
+
 
 (defn load-image [filename]
   (edges (cv/imread filename)))
@@ -23,7 +24,7 @@
      template
      out
      cv/TM_SQDIFF)
-    (< (.minVal (cv/min-max-loc out)) 100000)))
+    (< (.minVal (cv/min-max-loc out)) 500000)))
 
 (defn has-completed-order? [image]
   (matches? image order-finished-icon))
