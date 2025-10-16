@@ -3,9 +3,14 @@
             [clojure.java.shell :as sh])
   (:import [org.opencv.core Mat]))
 
+(defn edges [image]
+  (-> image
+      (cv/sobel! cv/CV_8U, 1, 1)
+      (cv/cvt-color! cv/COLOR_BGR2GRAY)
+      (cv/threshold! 1 255 , cv/THRESH_BINARY)))
 
 (defn load-image [filename]
-  (cv/imread filename))
+  (edges (cv/imread filename)))
 
 (def order-finished-icon (load-image "foxholefinished"))
 
