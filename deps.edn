@@ -1,5 +1,6 @@
 {:paths ["src"]
  :mvn/repos
  {"vendredi" {:url "https://repository.hellonico.info/repository/hellonico/"}}
+ :aliases {:run {:exec-fn core/run-loop}}
  :deps 
  { origami {:mvn/version "4.10.0-5"}}}
