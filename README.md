@@ -1,6 +1,13 @@
 # about
 simple watcher that beeps when queue in a factory screen in background foxhole
 window finishes.
+
+# running
+
+```
+clj -X:run
+```
+
 # dependencies
 
 * clojure
